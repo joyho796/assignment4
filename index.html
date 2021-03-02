@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Joe's Hotdog Stand</title>
+    <link href="style.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-image: url('hotdogs.jpg');
+            background-position: top;
+            background-attachment: scroll;
+            background-size: 750px;
+            text-align: center;
+            font-family: 'Trebuchet MS', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Joe's Hotdog Stand</h1>
+    <div id="info">
+        <br>
+        <h3>Discount on orders over $20!</h3>
+        <p>Hotdogs: $3.25</p>
+        <p>Fries: $2.00</p>
+        <p>Drinks: $1.50</p>
+        <br>
+        <div id="order">
+        <p>Hotdogs: &nbsp&nbsp&nbsp
+        <label  id="hotdogs">0</label>
+        &nbsp&nbsp&nbsp&nbsp
+        <button class="button" onclick="hotdogs()">+</button>
+        </p>
+        <p>Fries: &nbsp&nbsp&nbsp
+        <label  id="fries">0</label>
+        &nbsp&nbsp&nbsp&nbsp
+        <button class="button" onclick="fries()">+</button>
+        </p>
+        <p>Drinks: &nbsp&nbsp&nbsp
+        <label  id="drinks">0</label>
+        &nbsp&nbsp&nbsp&nbsp
+        <button class="button" onclick="drinks()">+</button>
+        </p>
+        <button class="button" onclick="confirm()" style=" padding: 8px 12px; font-size: 18px;">Confirm Order</button><br><br>
+        </div>
+        <br><br>
+    </div>
+
+    <div id = "summary" style="display:none;">
+        <br>
+        <h2>Order Summary</h2>
+        <br>
+        <div id = "flex" style="flex-direction: row; margin-left: 15px; margin-right: 15px">
+            <div id = "flex" style="margin-right: 20%">
+                <p>Item</p>
+                <p>Hotdogs</p>
+                <p>Fries</p>
+                <p>Drinks</p>
+                <p>Subtotal</p>
+                <p>Discount</p>
+                <p>Tax (6.25%)</p>
+                <p>Total</p>
+            </div>
+            <div id = "flex" style="margin-right:5px;text-align: right;">
+                <p>Ordered</p>
+                <p id="numhotdogs">0</p>
+                <p id="numfries">0</p>
+                <p id="numdrinks">0</p>
+                <p id="numitems">0</p>
+                <p id="discount">&nbsp</p>
+                <p>&nbsp</p>
+                <p>&nbsp</p>
+            </div>
+            <div id = "flex" style="text-align: right;">
+                <p>Total</p>
+                <p id="hotdogstotal">0</p>
+                <p id="friestotal">0</p>
+                <p id="drinkstotal">0</p>
+                <p id="subtotal">0</p>
+                <p id="discounted">0</p>
+                <p id="tax">0</p>
+                <p id="total">0</p>
+
+            </div>
+        </div>
+        <br><br>
+
+    </div>
+
+    <script>
+        function hotdogs() {
+        var display = prompt("How many hotdogs would you like to order?", "0");
+        document.getElementById("hotdogs").innerHTML = display;
+        }
+        function fries() {
+        var display = prompt("How many fries would you like to order?", "0");
+        document.getElementById("fries").innerHTML = display;
+        }
+        function drinks() {
+        var display = prompt("How many drinks would you like to order?", "0");
+        document.getElementById("drinks").innerHTML = display;
+        }
+        function confirm() {
+        var numhotdogs = parseInt(document.getElementById("hotdogs").innerHTML);
+        var numfries = parseInt(document.getElementById("fries").innerHTML);
+        var numdrinks = parseInt(document.getElementById("drinks").innerHTML);
+        document.getElementById('info').style.display = "none";
+        document.getElementById('summary').style.display = "block";
+        document.getElementById("numhotdogs").innerHTML = numhotdogs;
+        document.getElementById("numfries").innerHTML = numfries;
+        document.getElementById("numdrinks").innerHTML = numdrinks;
+        document.getElementById("numitems").innerHTML = numhotdogs+numfries+numdrinks;
+        document.getElementById("hotdogstotal").innerHTML = "$" + (numhotdogs*3.25).toFixed(2);
+        document.getElementById("friestotal").innerHTML = "$" + (numfries*2).toFixed(2);
+        document.getElementById("drinkstotal").innerHTML = "$" + (numdrinks*1.5).toFixed(2);
+        var subtotal = (numhotdogs*3.25)+(numfries*2)+(numdrinks*1.5);
+        document.getElementById("subtotal").innerHTML = "$" + subtotal.toFixed(2);
+        if(subtotal>=20) {
+            var discount = 0.1*subtotal;
+        } else {
+            var discount = 0;
+            document.getElementById("discount").innerHTML = "Not Applied";
+        }
+        document.getElementById("discounted").innerHTML = "-$" + discount.toFixed(2);
+        document.getElementById("tax").innerHTML = "$" + ((subtotal-discount)*0.0625).toFixed(2);
+        document.getElementById("total").innerHTML = "$" + ((subtotal-discount)*1.0625).toFixed(2);
+        }
+    </script>
+
+</body>
+
+</html>
